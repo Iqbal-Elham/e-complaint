@@ -1,42 +1,47 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
-import bribe1 from "../assets/bribe.jpg";
-import bribe2 from "../assets/bribe2.jpg";
-import bribe3 from "../assets/Bribes.gif";
+/* eslint-disable react/prop-types */
+import { useTranslation } from 'react-i18next';
+import bribe1 from '../assets/bribe.jpg';
+import bribe2 from '../assets/bribe2.jpg';
+import bribe3 from '../assets/Bribes.gif';
 
-const Complaint = () => {
+const Complaint = ({ complaint }) => {
   const { t } = useTranslation();
   return (
     <div className="flex items-center justify-center py-3 px-3 w-full">
       <div className="w-full p-4 md:p-8 shadow-2xl  bg-gradient-to-b from-blue-200 to-blue-100 rounded-md mt-12">
-        <h2 className="text-4xl"></h2>
         <section className="py-20 overflow-hidden bg-white">
           <div className="flex justify-between px-4 py-4 mx-auto lg:py-8">
             <div className="flex flex-wrap justify-around">
               <div className="pb-6 mb-8 border-b border-gray-200">
                 <h2 className="max-w-xl mt-2 mb-2 text-xl font-bold md:text-4xl">
-                  شکایت شماره 22
+                  {t('complaint_number')}
+                  {complaint?.id}
                 </h2>
-                <p class="text-xl font-medium text-rose-500 mb-6">
-                  رشوت گیرینده
+                <p className="text-xl font-medium text-rose-500 mb-6">
+                  {t(complaint?.complaint_type)}
                 </p>
-                <h3 className="text-xl">توضیحات شکایت:</h3>
+                <h3 className="text-xl">{t('complaint_desc')}:</h3>
                 <p className="max-w-md mb-8 text-gray-700">
-                  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-                  استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و
-                  مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی
-                  تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                  کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته
+                  {complaint?.description}
                 </p>
                 <div>
                   <p>
-                    <span className="font-bold">اسم شکایت کننده: &nbsp;</span> علی احمد عطایی
+                    <span className="font-bold">
+                      {t('complainer_name')}: &nbsp;
+                    </span>{' '}
+                    {complaint?.name}
                   </p>
                   <p>
-                    <span className="font-bold">شماره تماس شکایت کننده: &nbsp;</span> علی احمد عطایی
+                    <span className="font-bold">
+                      {t('complainer_phone')}: &nbsp;
+                    </span>{' '}
+                    {complaint?.phone_number}
                   </p>
                   <p>
-                    <span className="font-bold">ایمل شکایت کننده: &nbsp;</span> ataie@gmail.com
+                    <span className="font-bold">
+                      {t('complainer_email')}: &nbsp;
+                    </span>{' '}
+                    {complaint?.email}
                   </p>
                 </div>
               </div>

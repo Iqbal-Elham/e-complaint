@@ -138,6 +138,8 @@
   "placeholder_email": "ایمل خودرا وارد نماید (اختیاری)",
   "placeholder_phoneNumber": "شماره تماس خودرا وارد نماید (اختیاری)",
   "complaint_type": "نوع شکایت خودرا انتخاب نماید",
-  "bribe_giver": "رشوه گیرینده",
-  "bribe_getter": "رشوه دهنده"
+  "bribe_given": "رشوه گیرینده",
+  "bribe_taken": "رشوه دهنده",
+  "complaint_desc": "توضیجات شکایت",
+  "complaint_number": "شکایت شماره"
 }

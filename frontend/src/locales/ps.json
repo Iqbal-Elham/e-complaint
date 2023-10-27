@@ -94,10 +94,8 @@
   "passwords_mismatch": "پت نوم یو دول نه دي",
   "invalid_password": "پت نوم سم نه دي",
 
-
-
   "ministry_brand": "د کورنیو چارو وزارت",
-  "save_complaint": "د شکایتونو ثبتول"
-
-
+  "save_complaint": "د شکایتونو ثبتول",
+  "complaint_desc": "د شکایت توضیجات",
+  "complaint_number": "د شکایت شماره"
 }

@@ -3,14 +3,28 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'Far.Nazanin';
-    src: local('Far.Nazanin'), url(./fonts/Far.Nazanin.ttf), login-format('truetype');
-    /* font-family: 'Pashto.Light';
+  font-family: 'Far.Nazanin';
+  src: local('Far.Nazanin'), url(./fonts/Far.Nazanin.ttf),
+    login-format('truetype');
+  /* font-family: 'Pashto.Light';
     src: local('Pashto.Light'), url(./fonts/Mj_Pashtu_Light_0.ttf), login-format('truetype'); */
 }
 
 body {
-    background-color: white;
-    font-family: 'Far.Nazanin' !important;
+  background-color: white;
+  font-family: 'Far.Nazanin' !important;
+}
 
+.bar {
+ 
+  animation: dance 0.5s infinite alternate ease-in-out;
+}
+
+@keyframes dance {
+  0% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(1.5);
+  }
 }
