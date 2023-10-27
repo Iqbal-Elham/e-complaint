@@ -62,6 +62,9 @@
   "placeholder_address": "آدرس خودرا را وارد نماید",
   "placeholder_description": "توضیجات در مورد شکایت خویش را بیان نماید",
 
+  "ministry_brand": "وزارت امور داخله",
+  "save_complaint": "ثبت شکایات",
+
   "notification_messages": {
     "new": "شکایت شما با موفقیت ارسال شد",
     "under_investigation": "شکایت شما در دست تحقیق قرار دارد",
@@ -130,5 +133,11 @@
     "closed": "بسته شده"
   },
   "passwords_mismatch": "رمز های عبور یکسان نیستند",
-  "invalid_password": "رمز عبور اشتباه است"
+  "invalid_password": "رمز عبور اشتباه است",
+  "placeholder_name": "اسم خودرا وارد نماید (اختیاری)",
+  "placeholder_email": "ایمل خودرا وارد نماید (اختیاری)",
+  "placeholder_phoneNumber": "شماره تماس خودرا وارد نماید (اختیاری)",
+  "complaint_type": "نوع شکایت خودرا انتخاب نماید",
+  "bribe_giver": "رشوه گیرینده",
+  "bribe_getter": "رشوه دهنده"
 }

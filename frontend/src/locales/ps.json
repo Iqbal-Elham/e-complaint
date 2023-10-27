@@ -92,5 +92,12 @@
     "closed": "بند شوی"
   },
   "passwords_mismatch": "پت نوم یو دول نه دي",
-  "invalid_password": "پت نوم سم نه دي"
+  "invalid_password": "پت نوم سم نه دي",
+
+
+
+  "ministry_brand": "د کورنیو چارو وزارت",
+  "save_complaint": "د شکایتونو ثبتول"
+
+
 }

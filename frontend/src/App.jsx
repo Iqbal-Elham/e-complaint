@@ -1,20 +1,34 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 import { useTranslation } from "react-i18next";
-import Form from "./components/Form";
-import Card from "./components/Card";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Homepage from "./containers/Homepage";
+import NewComplaint from "./containers/NewComplaints";
+import { Outlet } from "react-router";
+import Footer from "./components/Footer";
+import ComplaintDetails from "./containers/ComplaintDetails";
 
 function App() {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <Navbar />
-      <div className="container mx-auto max-w-screen-xl">
-        <Form />
-        <Card />
-      </div>
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <div>
+            <Navbar />
+            <Outlet />
+            <Footer />
+          </div>
+        }
+      >
+        <Route index element={<Homepage />} />
+        <Route path="/new" element={<NewComplaint />} />
+        <Route path="/complaint" element={<ComplaintDetails />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
   );
 }
 
