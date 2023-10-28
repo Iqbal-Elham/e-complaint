@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import Complaint from '../components/Complaint';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import DetailPlaceholder from '../components/DetailPlaceholder';
 
 const ComplaintDetails = () => {
   const { id } = useParams();
@@ -28,8 +29,12 @@ const ComplaintDetails = () => {
   }, [id]);
 
   return (
-    <div className="container mx-auto max-w-screen-xl">
-      {loading ? <div>Loading</div> : <Complaint complaint={complaint} />}
+    <div className="container mx-auto max-w-screen-xl overflow-hidden">
+      {loading || !complaint ? (
+        <DetailPlaceholder />
+      ) : (
+        <Complaint complaint={complaint} />
+      )}
     </div>
   );
 };

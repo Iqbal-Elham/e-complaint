@@ -1,19 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { FaMusic } from 'react-icons/fa';
 import AudioBars from './AudioBars';
 const Card = ({ complaint }) => {
-  const { t } = useTranslation();
-
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef();
 
   const first_attachment = complaint.attachments[0]?.file.split('.').pop();
 
-  console.log(first_attachment);
   let type = null;
 
   if (first_attachment) {
@@ -44,7 +40,7 @@ const Card = ({ complaint }) => {
         )}
         {type === 'audio' && (
           <>
-            <div className="flex h-full flex-col pt-4 justify-between items-center">
+            <div className="flex h-full flex-col pt-8 justify-between items-center">
               {playing ? <AudioBars /> : <FaMusic size={60} />}
               <audio
                 onPlay={() => setPlaying(true)}

@@ -96,6 +96,9 @@
 
   "ministry_brand": "د کورنیو چارو وزارت",
   "save_complaint": "د شکایتونو ثبتول",
+  "bribe_given": "رشوه اخیستونکی",
+  "bribe_taken": "رشوه ورکونکی",
   "complaint_desc": "د شکایت توضیجات",
-  "complaint_number": "د شکایت شماره"
+  "complaint_number": "د شکایت شمیره",
+  "unknown": "معلوم ندي"
 }
