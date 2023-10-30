@@ -142,5 +142,10 @@
   "bribe_taken": "رشوه دهنده",
   "complaint_desc": "توضیجات شکایت",
   "complaint_number": "شکایت شماره",
-  "unknown": "مشخص نشده"
+  "unknown": "مشخص نشده",
+
+  "previous": "قبلی",
+  "next": "بعدی"
+
+
 }

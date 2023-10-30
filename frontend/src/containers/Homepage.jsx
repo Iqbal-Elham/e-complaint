@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import PlaceHolder from '../components/Placeholder';
 import ReactPlayer from 'react-player';
+import Pagination from '../components/Pagination';
 
 const Homepage = () => {
   const { t } = useTranslation();
@@ -72,6 +73,7 @@ const Homepage = () => {
             )}
           </div>
         </div>
+        <Pagination />
       </div>
     </div>
   );
