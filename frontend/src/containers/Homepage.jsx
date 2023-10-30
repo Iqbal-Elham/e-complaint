@@ -55,7 +55,7 @@ const Homepage = () => {
   return (
     <div>
       <CarouselSlider />
-      <div className="container mx-auto max-w-screen-xl">
+     <div className="container mx-auto max-w-screen-xl">
         <div className="mt-16">
           <Link to="/new">
             <button className="flex items-center justify-center rounded-md p-2 w-52 text-xl bg-blue-500 font-bold text-white hover:bg-blue-700 m-3">
@@ -79,7 +79,7 @@ const Homepage = () => {
           <h2 className="text-center py-2 mx-4 2xl:mx-0 mb-10 text-5xl rounded-md bg-blue-100 border-y-2 border-y-gray-800">
             شکایات
           </h2>
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 place-items-center gap-4 mt-6">
+          {complaints.length > 0 ? <div className="grid md:grid-cols-2 xl:grid-cols-3 place-items-center gap-4 mt-6">
             {loading ? (
               <>
                 <PlaceHolder />
@@ -92,7 +92,11 @@ const Homepage = () => {
               ))
             )}
           </div>
+        :
+        <div className="flex justify-center items-center text-4xl p-10">
+          <p>{t('no_complaint_exist')}</p>
         </div>
+        }
         <Pagination
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
@@ -100,7 +104,8 @@ const Homepage = () => {
           setItemsPerPage={setItemsPerPage}
           paginationState={paginationState}
         />
-      </div>
+        </div>
+      </div> 
     </div>
   );
 };

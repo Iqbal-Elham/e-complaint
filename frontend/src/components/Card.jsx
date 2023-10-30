@@ -61,7 +61,7 @@ const Card = ({ complaint }) => {
         <h5 className="mb-2 block text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
           {complaint?.name ? complaint.name : 'بدون هویت'}
         </h5>
-        <p className="block text-base font-light min-h-[8rem] max-h-32 truncate leading-relaxed text-inherit antialiased">
+        <p className="block text-base font-light min-h-[8rem] max-h-32 line-clamp-2 leading-relaxed text-inherit antialiased">
           {complaint?.description}
         </p>
       </div>

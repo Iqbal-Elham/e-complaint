@@ -40,5 +40,7 @@
   "complaint_description_error": "تشریح ممکنه نا بشي",
   "complaint_file_error": "کم از کم یو فایل اړخ ضروري دی",
   "previous": "مخکی",
-  "next": "بل"
+  "next": "بل",
+  "no_complaint_exist": "هیڅ شکایت نشته"
+
 }
