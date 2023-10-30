@@ -16,6 +16,7 @@ class ComplaintSerializer(serializers.ModelSerializer):
             "complaint_type",
             "attachments",
             "created_at",
+            "views",
         )
 
     def get_attachments(self, object):

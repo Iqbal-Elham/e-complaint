@@ -36,14 +36,6 @@ const CarouselSlider = () => {
           console.debug("onAfterSliding(nextSlide): ", nextSlide),
       }}
     >
-      {/* <Overlay>
-      <Wrapper>
-        <Title>Basic Setup</Title>
-        <Subtitle>
-          Check out the documentation for more advanced examples.
-        </Subtitle>
-      </Wrapper>
-    </Overlay> */}
 
       <Slide
         background={{

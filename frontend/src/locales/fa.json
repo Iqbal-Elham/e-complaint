@@ -144,6 +144,10 @@
   "complaint_number": "شکایت شماره",
   "unknown": "مشخص نشده",
 
+
+  "complaint_type_error": "لطفا یک نوع شکایت را انتخاب نماید",
+  "complaint_description_error": "توضیحات نمیتواند خالی باشد",
+  "complaint_file_error": "حد اقل یک فایل ضروری است",
   "previous": "قبلی",
   "next": "بعدی"
 

@@ -33,3 +33,15 @@ class ComplaintViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin):
                 complaint, context={"request": request}
             )
             return Response(serialized_complaint.data, status=status.HTTP_201_CREATED)
+
+    
+    def retrieve(self, request, *args, **kwargs):
+        complaint = self.get_object()
+
+        complaint.views += 1
+
+        complaint.save()
+
+        serialized_complaint = ComplaintSerializer(complaint, context={"request": request})
+
+        return Response(serialized_complaint.data)

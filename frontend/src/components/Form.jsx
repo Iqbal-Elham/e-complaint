@@ -24,16 +24,16 @@ const Form = () => {
     e.preventDefault();
     const errors = {};
     if (!images.length) {
-      errors["attachments"] = "حد اقل یک فایل ضروری است";
+      errors["attachments"] = t('complaint_file_error');
     }
     if (
       !e.target.complaint_type.value ||
       e.target.complaint_type.value === "invalid"
     ) {
-      errors["complaint_type"] = "لطفا یک نوع را انتخاب کنید";
+      errors["complaint_type"] = t('complaint_type_error');
     }
     if (!e.target.description.value) {
-      errors["description"] = "توضیحات نمیتواند خالی باشد";
+      errors["description"] = t('complaint_description_error');
     }
     const formData = new FormData(e.target);
     images.forEach((image) => {
@@ -152,9 +152,9 @@ const Form = () => {
             </div>
             {isUploadContainerVisible && (
               <div className="mb-4 flex flex-col md:flex-row md:items-center">
-                {/* <label className="mb-2 block w-32 text-sm font-bold text-gray-700">
+                <label className="mb-2 block w-32 text-sm font-bold text-gray-700">
                 {t("upload_file")}
-              </label> */}
+              </label>
                 <label
                   className="w-full cursor-pointer border-2 border-dashed border-gray-600 p-4 text-center text-gray-400"
                   htmlFor="fileInput"
@@ -231,7 +231,7 @@ const Form = () => {
                 (entry) =>
                   entry[1] && (
                     <p key={entry[0]}>
-                      {entry[0]}: {entry[1]}
+                      {entry[1]}
                     </p>
                   )
               )}

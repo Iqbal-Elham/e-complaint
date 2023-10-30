@@ -1,36 +1,56 @@
-import { Link } from 'react-router-dom';
-import CarouselSlider from '../components/CarouselSlider';
-import Card from '../components/Card';
-import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import PlaceHolder from '../components/Placeholder';
-import ReactPlayer from 'react-player';
-import Pagination from '../components/Pagination';
+import { Link } from "react-router-dom";
+import CarouselSlider from "../components/CarouselSlider";
+import Card from "../components/Card";
+import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import PlaceHolder from "../components/Placeholder";
+import ReactPlayer from "react-player";
+import Pagination from "../components/Pagination";
+
 
 const Homepage = () => {
   const { t } = useTranslation();
   const [complaints, setComplaints] = useState([]);
+  const [itemsPerPage, setItemsPerPage] = useState(3);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [paginationState, setPaginationState] = useState({
+    hasNext: false,
+    hasPrev: false,
+    count: 0,
+  });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${import.meta.env.VITE_API_URL}complaints/`)
+      .get(
+        `${
+          import.meta.env.VITE_API_URL
+        }complaints/?limit=${itemsPerPage}&offset=${
+          (currentPage - 1) * itemsPerPage
+        }`
+      )
       .then((response) => {
-        setComplaints(response.data);
+        setComplaints(response.data.results);
+        setPaginationState({
+          ...paginationState,
+          hasNext: Boolean(response.data.next),
+          hasPrev: Boolean(response.data.previous),
+          count: response.data.count,
+        });
         setLoading(false);
       })
       .catch((error) => {
         if (!error.response) {
-          setError('connection_error');
+          setError("connection_error");
         } else {
           setError(error.response?.detail);
         }
         setLoading(false);
       });
-  }, []);
+  }, [itemsPerPage, currentPage]);
 
   return (
     <div>
@@ -39,7 +59,7 @@ const Homepage = () => {
         <div className="mt-16">
           <Link to="/new">
             <button className="flex items-center justify-center rounded-md p-2 w-52 text-xl bg-blue-500 font-bold text-white hover:bg-blue-700 m-3">
-              <span>{t('newComplaint')}</span>
+              <span>{t("newComplaint")}</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="ml-1 h-4 w-4"
@@ -73,7 +93,13 @@ const Homepage = () => {
             )}
           </div>
         </div>
-        <Pagination />
+        <Pagination
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          setCurrentPage={setCurrentPage}
+          setItemsPerPage={setItemsPerPage}
+          paginationState={paginationState}
+        />
       </div>
     </div>
   );

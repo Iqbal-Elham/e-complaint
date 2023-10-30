@@ -14,6 +14,7 @@ class Complaint(models.Model):
     phone_number = models.CharField(max_length=12, blank=True)
     description = models.TextField(null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    views = models.IntegerField(default=0)
 
     def __str__(self) -> str:
         return self.title

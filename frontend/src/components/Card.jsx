@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import { AiOutlineFileText } from 'react-icons/ai';
 import { FaMusic } from 'react-icons/fa';
 import AudioBars from './AudioBars';
+import { BsFillEyeFill } from 'react-icons/bs'
+
+
 const Card = ({ complaint }) => {
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef();
@@ -23,7 +26,7 @@ const Card = ({ complaint }) => {
   }
 
   return (
-    <div className="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-2xl my-9">
+    <div className="relative flex w-96 md:w-full flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-2xl my-6">
       <div className="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg flex items-center justify-center shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
         {type === 'image' && (
           <img
@@ -62,7 +65,7 @@ const Card = ({ complaint }) => {
           {complaint?.description}
         </p>
       </div>
-      <div className="p-6 pt-0">
+      <div className="p-6 pt-0 flex justify-between items-center">
         <Link
           data-ripple-light="true"
           to={`/complaint/${complaint?.id}`}
@@ -70,6 +73,7 @@ const Card = ({ complaint }) => {
         >
           نمایش
         </Link>
+        <p className="flex gap-2 items-center text-lg font-bold"><BsFillEyeFill /> {complaint?.views/2}</p>
       </div>
     </div>
   );
