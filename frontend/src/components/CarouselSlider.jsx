@@ -10,7 +10,7 @@ const CarouselSlider = () => {
   const options = {
     items: 3, // Number of items to display at a time
     autoplay: true,
-    autoplayTimeout: 3000, // Auto-play interval in milliseconds
+    autoplayTimeout: 500, // Auto-play interval in milliseconds
     nav: true, // Show navigation arrows
   };
 
@@ -21,7 +21,7 @@ const CarouselSlider = () => {
       controller={{
         initialSlide: 1,
         slidingDuration: 500,
-        slidingDelay: 100,
+        slidingDelay: 10,
         shouldAutoplay: true,
         slidingAnimation: "right_to_left",
         onSliding: (nextSlide) =>

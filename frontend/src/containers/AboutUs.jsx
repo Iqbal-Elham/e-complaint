@@ -39,7 +39,7 @@ const AboutUs = () => {
           <h2 className="text-2xl font-semibold text-gray-800 w-3/4">
             {t('about')}
           </h2>
-          <p className="mt-2 text-gray-600 w-3/4 text-justify">{content[language]}</p>
+          <p className="mt-2 text-gray-600 w-3/4 text-justify">{content[language]?? content["fa"]}</p>
         </div>
       </div>
     </div>
