@@ -1,0 +1,8 @@
+{
+  "appId": "af.complaint.app",
+  "appName": "e-complaint",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

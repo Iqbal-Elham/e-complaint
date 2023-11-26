@@ -41,6 +41,7 @@
   "complaint_file_error": "کم از کم یو فایل اړخ ضروري دی",
   "previous": "مخکی",
   "next": "بل",
-  "no_complaint_exist": "هیڅ شکایت نشته"
+  "no_complaint_exist": "هیڅ شکایت نشته",
+  "about":"زموږ په اړه"
 
 }

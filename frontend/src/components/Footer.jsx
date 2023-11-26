@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   const { t } = useTranslation();
   return (
-    <footer className="bg-blue-900 text-white py-8 mt-14">
+    <footer className="bg-blue-900 text-white py-8">
       <div className="container mx-auto max-w-screen-xl flex items-center justify-around 2xl:justify-between">
         <Link
           to="/new"

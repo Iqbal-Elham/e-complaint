@@ -150,7 +150,6 @@
   "complaint_file_error": "حد اقل یک فایل ضروری است",
   "previous": "قبلی",
   "next": "بعدی",
-  "no_complaint_exist": "هیج شکایتی وجود ندارد"
-
-
+  "no_complaint_exist": "هیج شکایتی وجود ندارد",
+  "about":"در باره ما"
 }

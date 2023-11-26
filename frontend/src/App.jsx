@@ -7,6 +7,7 @@ import NewComplaint from './containers/NewComplaints';
 import { Outlet } from 'react-router';
 import Footer from './components/Footer';
 import ComplaintDetails from './containers/ComplaintDetails';
+import AboutUs from './containers/AboutUs';
 
 function App() {
   const { t } = useTranslation();
@@ -26,6 +27,7 @@ function App() {
         <Route index element={<Homepage />} />
         <Route path="/new" element={<NewComplaint />} />
         <Route path="/complaint/:id" element={<ComplaintDetails />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

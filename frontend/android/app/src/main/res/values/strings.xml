@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">e-complaint</string>
+    <string name="title_activity_main">e-complaint</string>
+    <string name="package_name">af.complaint.app</string>
+    <string name="custom_url_scheme">af.complaint.app</string>
+</resources>
