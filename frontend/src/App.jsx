@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import { useTranslation } from 'react-i18next';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -11,6 +11,10 @@ import AboutUs from './containers/AboutUs';
 
 function App() {
   const { t } = useTranslation();
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {}, []);
 
   return (
     <Routes>

@@ -5,6 +5,7 @@ from decouple import config
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+AUTH_USER_MODEL = "authentication.CustomUser"
 
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "github_storages",
     "rest_framework",
+    "authentication.apps.AuthenticationConfig",
     "core.apps.CoreConfig",
 ]
 
@@ -54,14 +56,16 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "authentication.middleware.token.TokenExpiryCheckMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": ("authentication.backends.JWTAuthentication",),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 6,
 }
 
