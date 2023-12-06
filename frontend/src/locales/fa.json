@@ -126,11 +126,9 @@
     "other": "سایر"
   },
   "states": {
-    "new": "جدید",
+    "received": "دریافت شده",
     "under_investigation": "تحت تحقیق",
-    "rejected": "رد شده",
-    "resolved": "حل شده",
-    "closed": "بسته شده"
+    "resolved": "حل شده"
   },
   "passwords_mismatch": "رمز های عبور یکسان نیستند",
   "invalid_password": "رمز عبور اشتباه است",
@@ -144,12 +142,11 @@
   "complaint_number": "شکایت شماره",
   "unknown": "مشخص نشده",
 
-
   "complaint_type_error": "لطفا یک نوع شکایت را انتخاب نماید",
   "complaint_description_error": "توضیحات نمیتواند خالی باشد",
   "complaint_file_error": "حد اقل یک فایل ضروری است",
   "previous": "قبلی",
   "next": "بعدی",
   "no_complaint_exist": "هیج شکایتی وجود ندارد",
-  "about":"در باره ما"
+  "about": "در باره ما"
 }

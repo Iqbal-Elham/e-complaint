@@ -3,7 +3,7 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.parsers import FormParser, MultiPartParser, JSONParser
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.decorators import action
 from .models import Complaint, Attachment, Notification, COMPLAINT_STATES
 from .serializers import (
@@ -19,9 +19,16 @@ class ComplaintViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin):
     parser_classes = [FormParser, MultiPartParser]
     permission_classes = [IsAuthenticated]
 
+    def get_permissions(self):
+        if self.action in ["update", "destroy"]:
+            permission_classes = [IsAdminUser]
+        else:
+            permission_classes = [AllowAny]
+        return [permission() for permission in permission_classes]
+
     def create(self, request):
         data_copy = request.data.copy()
-        data_copy["user"] = request.user
+        data_copy["user"] = request.user.id
         serializer = ComplaintCreateSerializer(
             data=data_copy, context={"request": request}
         )

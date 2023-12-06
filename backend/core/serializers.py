@@ -21,6 +21,7 @@ class ComplaintSerializer(serializers.ModelSerializer):
             "attachments",
             "created_at",
             "views",
+            "state",
         )
 
     def get_name(self, obj):

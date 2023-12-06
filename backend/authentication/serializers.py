@@ -29,5 +29,4 @@ class UserCreateSerializer(serializers.ModelSerializer):
             "password",
             "first_name",
             "last_name",
-            "phone_number",
         ]

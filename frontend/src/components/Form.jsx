@@ -1,19 +1,20 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import video from "../assets/video.png";
-import audio from "../assets/audio.png";
-import { AiOutlineFileText } from "react-icons/ai";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import video from '../assets/video.png';
+import audio from '../assets/audio.png';
+import { AiOutlineFileText } from 'react-icons/ai';
 
 const Form = () => {
   const [images, setImages] = useState([]);
   const [isUploadContainerVisible, setUploadContainerVisible] = useState(true);
   const [error, setError] = useState(null);
+
   const [clientErrors, setClientErrors] = useState({
-    complaint_type: "",
-    description: "",
-    attachments: "",
+    complaint_type: '',
+    description: '',
+    attachments: '',
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -24,36 +25,39 @@ const Form = () => {
     e.preventDefault();
     const errors = {};
     if (!images.length) {
-      errors["attachments"] = t('complaint_file_error');
+      errors['attachments'] = t('complaint_file_error');
     }
     if (
       !e.target.complaint_type.value ||
-      e.target.complaint_type.value === "invalid"
+      e.target.complaint_type.value === 'invalid'
     ) {
-      errors["complaint_type"] = t('complaint_type_error');
+      errors['complaint_type'] = t('complaint_type_error');
     }
     if (!e.target.description.value) {
-      errors["description"] = t('complaint_description_error');
+      errors['description'] = t('complaint_description_error');
     }
     const formData = new FormData(e.target);
     images.forEach((image) => {
-      formData.append("attachments", image);
+      formData.append('attachments', image);
     });
-    formData.delete("file");
+    formData.delete('file');
 
     if (Object.keys(errors).length > 0) return setClientErrors(errors);
     setLoading(true);
     axios
       .post(`${import.meta.env.VITE_API_URL}complaints/`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+        },
       })
       .then(() => {
         setLoading(false);
-        navigate("/");
+        navigate('/');
       })
       .catch((error) => {
         if (!error.response) {
-          setError("connection_error");
+          setError('connection_error');
         } else {
           setError(error.response?.detail);
         }
@@ -80,16 +84,16 @@ const Form = () => {
   };
 
   const get_type = (name) => {
-    const extension = name.split(".").pop();
+    const extension = name.split('.').pop();
     let type = null;
 
     if (extension) {
-      if (["jpg", "png", "webp", "gif", "jpeg"].indexOf(extension) !== -1)
-        type = "image";
-      else if (["mp4", "mov", "mkv", "avi"].indexOf(extension) !== -1)
-        type = "video";
-      else if (["mp3", "ogg", "wav"].indexOf(extension) !== -1) type = "audio";
-      else type = "file";
+      if (['jpg', 'png', 'webp', 'gif', 'jpeg'].indexOf(extension) !== -1)
+        type = 'image';
+      else if (['mp4', 'mov', 'mkv', 'avi'].indexOf(extension) !== -1)
+        type = 'video';
+      else if (['mp3', 'ogg', 'wav'].indexOf(extension) !== -1) type = 'audio';
+      else type = 'file';
     }
     return type;
   };
@@ -97,8 +101,8 @@ const Form = () => {
   return (
     <div className="flex items-center justify-center py-3 px-3 w-full">
       <div className="w-full p-4 md:p-8 shadow-2xl  bg-gradient-to-b from-blue-100 to-blue-50 rounded-sm mt-12">
-        <h2 className="text-4xl">{t("newComplaint")}</h2>
-        <p className="text-md mb-8">{t("form_description")}</p>
+        <h2 className="text-4xl">{t('newComplaint')}</h2>
+        <p className="text-md mb-8">{t('form_description')}</p>
 
         <form
           onSubmit={handleSubmit}
@@ -109,14 +113,14 @@ const Form = () => {
               <input
                 className="shadow-2xl p-3 w-full outline-none focus:border-solid focus:border-[1px] rounded-sm border-blue-900 placeholder:text-gray-500"
                 type="text"
-                placeholder={t("placeholder_name")}
+                placeholder={t('placeholder_name')}
                 id="name"
                 name="name"
               />
               <input
                 className="shadow-2xl p-3 w-full outline-none focus:border-solid focus:border-[1px] rounded-sm border-blue-900 placeholder:text-gray-500"
                 type="text"
-                placeholder={t("placeholder_phoneNumber")}
+                placeholder={t('placeholder_phoneNumber')}
                 id="phone_number"
                 name="phone_number"
               />
@@ -125,7 +129,7 @@ const Form = () => {
               <input
                 className="shadow-2xl p-3 w-full outline-none focus:border-solid focus:border-[1px] rounded-sm border-blue-900 placeholder:text-gray-500"
                 type="email"
-                placeholder={t("placeholder_email")}
+                placeholder={t('placeholder_email')}
                 id="email"
                 name="email"
               />
@@ -134,11 +138,11 @@ const Form = () => {
                 name="complaint_type"
                 className="shadow-2xl p-3 w-full outline-none focus:border-solid focus:ring-blue-900 focus:border-[1px] rounded-sm border-blue-900 placeholder:text-gray-500"
               >
-                <option disabled value={"invalid"} selected>
-                  {t("complaint_type")}
+                <option disabled value={'invalid'} selected>
+                  {t('complaint_type')}
                 </option>
-                <option value="bribe_given">{t("bribe_given")}</option>
-                <option value="bribe_taken">{t("bribe_taken")}</option>
+                <option value="bribe_given">{t('bribe_given')}</option>
+                <option value="bribe_taken">{t('bribe_taken')}</option>
               </select>
             </div>
             <div className="grid gap-6 w-full">
@@ -146,15 +150,15 @@ const Form = () => {
                 className="p-3 resize-none shadow-2xl  w-full placeholder:text-gray-500 outline-none focus:border-solid border-blue-500 focus:border-[1px]"
                 id="description"
                 name="description"
-                placeholder={t("description")}
+                placeholder={t('description')}
                 rows="3"
               />
             </div>
             {isUploadContainerVisible && (
               <div className="mb-4 flex flex-col md:flex-row md:items-center">
                 <label className="mb-2 block w-32 text-sm font-bold text-gray-700">
-                {t("upload_file")}
-              </label>
+                  {t('upload_file')}
+                </label>
                 <label
                   className="w-full cursor-pointer border-2 border-dashed border-gray-600 p-4 text-center text-gray-400"
                   htmlFor="fileInput"
@@ -176,28 +180,28 @@ const Form = () => {
                   key={index}
                   className="mb-2 flex w-full md:w-1/2 items-center justify-between rounded-md bg-white border shadow-xl p-2"
                 >
-                  {get_type(image.name) === "image" && (
+                  {get_type(image.name) === 'image' && (
                     <img
                       src={URL.createObjectURL(image)}
                       alt={`Image ${index + 1}`}
                       className="mr-2 block h-16 w-16 rounded-md"
                     />
                   )}
-                  {get_type(image.name) === "video" && (
+                  {get_type(image.name) === 'video' && (
                     <img
                       src={video}
                       alt={`Image ${index + 1}`}
                       className="mr-2 block h-16 w-16 rounded-md"
                     />
                   )}
-                  {get_type(image.name) === "audio" && (
+                  {get_type(image.name) === 'audio' && (
                     <img
                       src={audio}
                       alt={`Image ${index + 1}`}
                       className="mr-2 block h-16 w-16 rounded-md"
                     />
                   )}
-                  {get_type(image.name) === "file" && (
+                  {get_type(image.name) === 'file' && (
                     <AiOutlineFileText size={78} />
                   )}
 
@@ -228,12 +232,7 @@ const Form = () => {
             </div>
             <div className="text-red-500" dir="rtl">
               {Object.entries(clientErrors).map(
-                (entry) =>
-                  entry[1] && (
-                    <p key={entry[0]}>
-                      {entry[1]}
-                    </p>
-                  )
+                (entry) => entry[1] && <p key={entry[0]}>{entry[1]}</p>
               )}
             </div>
             <button
