@@ -22,6 +22,8 @@ class ComplaintViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin):
     def get_permissions(self):
         if self.action in ["update", "destroy"]:
             permission_classes = [IsAdminUser]
+        elif self.action in ["my_complaints"]:
+            permission_classes = [IsAuthenticated]
         else:
             permission_classes = [AllowAny]
         return [permission() for permission in permission_classes]
@@ -47,67 +49,60 @@ class ComplaintViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin):
 
     def retrieve(self, request, *args, **kwargs):
         complaint = self.get_object()
-
         complaint.views += 1
-
         complaint.save()
-
         serialized_complaint = ComplaintSerializer(
             complaint, context={"request": request}
         )
 
         return Response(serialized_complaint.data)
 
+    @action(methods=["get"], detail=False, parser_classes=[JSONParser])
+    def my_complaints(self, request):
+        user = request.user
+        complaints = self.queryset.filter(user=user)
+        page = self.paginate_queryset(complaints)
+        if page is not None:
+            serializer = self.get_serializer(
+                page, many=True, context={"request": request}
+            )
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(
+            complaints, many=True, context={"request": request}
+        )
+        return Response(serializer.data)
+
     @action(methods=["post"], detail=True, parser_classes=[JSONParser])
-    def update_state(self, request):
+    def update_state(self, request, *args, **kwargs):
         if not request.user.is_staff:
             return Response(
                 {"detail": "not_admin"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        complaint_id = request.data.get("complaint_id")
-        new_state = request.data.get("new_state")
-        if not (complaint_id and new_state):
-            return Response(
-                {"detail": "complaint_id_new_state_required"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
         try:
             complaint = self.get_object()
-            valid_states = [value for value, _ in COMPLAINT_STATES]
-            error = None
-
-            if new_state not in valid_states:
-                error = "invalid_complaint_state"
-            elif (
-                new_state == "under_investigation" and not complaint.state == "received"
-            ):
-                error = "invalid_complaint_state_selected"
-            elif (
-                new_state == "resolved" and not complaint.state == "under_investigation"
-            ):
-                error = "invalid_complaint_state_selected"
-            elif new_state == "received":
-                error = "invalid_complaint_state_selected"
-            if error:
+            if complaint.state == "received":
+                complaint.state = "under_investigation"
+            elif complaint.state == "under_investigation":
+                complaint.state = "resolved"
+            else:
                 return Response(
-                    {"detail": error},
+                    {"detail": "not_editable"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-            else:
-                complaint.state = new_state
-                complaint.save()
-                Notification.objects.create(
-                    user=complaint.user, complaint=complaint, message=new_state
-                )
-                serializer = ComplaintSerializer(
-                    complaint, many=False, context={"request": request}
-                )
+            complaint.save()
+            Notification.objects.create(
+                user=complaint.user, complaint=complaint, message=complaint.state
+            )
+            serializer = ComplaintSerializer(
+                complaint, many=False, context={"request": request}
+            )
 
-                return Response(
-                    serializer.data,
-                    status=status.HTTP_202_ACCEPTED,
-                )
+            return Response(
+                serializer.data,
+                status=status.HTTP_202_ACCEPTED,
+            )
 
         except Complaint.DoesNotExist:
             return Response(

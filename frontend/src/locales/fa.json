@@ -66,11 +66,9 @@
   "save_complaint": "ثبت شکایات",
 
   "notification_messages": {
-    "new": "شکایت شما با موفقیت ارسال شد",
+    "received": "شکایت شما با موفقیت ارسال شد",
     "under_investigation": "شکایت شما در دست تحقیق قرار دارد",
-    "resolved": "شکایت شما حل شده است",
-    "rejected": "شکایت شما رد شده است",
-    "closed": "شکایت شما بسته شده است"
+    "resolved": "شکایت شما حل شده است"
   },
 
   "provinces": {

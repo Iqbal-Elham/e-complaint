@@ -1,7 +1,8 @@
 import Logo from '../assets/logo.png';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Navigate } from 'react-router-dom';
+
 const Register = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -34,6 +35,10 @@ const Register = () => {
       });
   };
 
+  const token = localStorage.getItem('token');
+  if (token) {
+    return <Navigate to={'/'} />;
+  }
   return (
     <div className="flex items-center justify-center py-8 min-h-screen bg-gray-100">
       <div className="w-full max-w-xs md:max-w-md">

@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './fonts/Far.Nazanin.ttf';
 import { ThemeProvider } from '@material-tailwind/react';
 import AuthProvider from './context/AuthProvider.jsx';
+import { Toaster } from 'react-hot-toast';
 
 const userLanguage = localStorage.getItem('selectedLanguage');
 if (userLanguage) {
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <ThemeProvider>
       <BrowserRouter>
         <AuthProvider>
+          <Toaster />
           <App />
         </AuthProvider>
       </BrowserRouter>

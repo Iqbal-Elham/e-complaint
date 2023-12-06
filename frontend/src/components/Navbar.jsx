@@ -5,11 +5,14 @@ import logo from '../assets/logo.png';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { LiaTimesSolid } from 'react-icons/lia';
 import useUser from '../context/userUser';
+import { FaBell } from 'react-icons/fa';
+import axios from 'axios';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
   const [activeLanguage, setActiveLanguage] = useState(i18n.language);
   const [mobileMenu, setMobileMenu] = useState(document.body.clientWidth > 540);
+  const [notifications, setNotifications] = useState([]);
 
   const { logout, user } = useUser();
 
@@ -21,6 +24,17 @@ const Navbar = () => {
   useEffect(() => {
     setActiveLanguage(i18n.language);
   }, [i18n.language]);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_API_URL}notifications/`, {
+        headers: { Authorization: 'Bearer ' + localStorage.getItem('token') },
+      })
+      .then((response) => {
+        setNotifications(response.data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   const isActive = (language) => {
     return activeLanguage === language ? 'text-white' : 'text-black';
@@ -42,9 +56,9 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="">
-        <nav className="h-20 bg-blue-500 flex justify-around items-center px-4 md:0">
-          <div className="">
+      <div>
+        <nav className="z-0 h-20 bg-blue-500 flex justify-around items-center px-4 md:0">
+          <div className="flex items-center">
             <Link
               to="/"
               rel="home"
@@ -56,6 +70,28 @@ const Navbar = () => {
                 <p>{t('save_complaint')}</p>
               </div>
             </Link>
+            <div className="flex mx-4 relative group">
+              <FaBell color="white" size={20} className="z-50" />
+
+              <ul className="z-50 group-hover:block hidden absolute top-full  w-72 rounded max-h-96 overflow-auto bg-gray-50 px-4 py-2 right-0">
+                <li className="text-center text-blue-500 font-bold text-lg">
+                  اعلامیه های شما
+                </li>
+                {notifications.map((notification) => (
+                  <li
+                    key={notification.id}
+                    className="w-full rounded hover:shadow-xl shadow-md p-2 text-gray-900 flex flex-col"
+                  >
+                    <Link to={`complaint/${notification.complaint.id}`}>
+                      <p className="font-bold">
+                        شکایت شماره {notification.complaint?.id}
+                      </p>
+                      {t(`notification_messages.${notification.message}`)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
           <div className="text-white text-xl sm:hidden cursor-pointer">
             {mobileMenu ? (
@@ -67,20 +103,33 @@ const Navbar = () => {
           {mobileMenu && (
             <div className="absolute top-20 z-50 left-0 right-0 bg-blue-500 sm:static select-none">
               <div className="flex flex-col items-center sm:flex-row pb-4 sm:pb-0">
-                <Link
-                  to="/new"
-                  className="text-white cursor-pointer hover:text-black text-xl md:text-2xl mx-4 my-2 sm:my-0"
-                  onClick={handleHideMenu}
-                >
-                  <p>{t('newComplaint')}</p>
-                </Link>
-                <Link
-                  to="/about-us"
-                  onClick={handleHideMenu}
-                  className="text-white cursor-pointer hover:text-black text-xl md:text-2xl mx-4 my-2 sm:my-0"
-                >
-                  <p>{t('about')}</p>
-                </Link>
+                {user && (
+                  <Link
+                    to="/dashboard"
+                    className="text-white cursor-pointer hover:text-black text-xl md:text-2xl mx-4 my-2 sm:my-0"
+                    onClick={handleHideMenu}
+                  >
+                    {user?.is_staff ? <p>دشبورد</p> : <p>شکایات من</p>}
+                  </Link>
+                )}
+                {!user?.is_staff && (
+                  <>
+                    <Link
+                      to="/new"
+                      className="text-white cursor-pointer hover:text-black text-xl md:text-2xl mx-4 my-2 sm:my-0"
+                      onClick={handleHideMenu}
+                    >
+                      <p>{t('newComplaint')}</p>
+                    </Link>
+                    <Link
+                      to="/about-us"
+                      onClick={handleHideMenu}
+                      className="text-white cursor-pointer hover:text-black text-xl md:text-2xl mx-4 my-2 sm:my-0"
+                    >
+                      <p>{t('about')}</p>
+                    </Link>
+                  </>
+                )}
                 <div className="flex items-center gap-3 mx-6 my-2 sm:my-0">
                   <p
                     className={`text-white ${isActive(

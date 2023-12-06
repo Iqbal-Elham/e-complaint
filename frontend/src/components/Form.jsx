@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import video from '../assets/video.png';
 import audio from '../assets/audio.png';
 import { AiOutlineFileText } from 'react-icons/ai';
+import { toast } from 'react-hot-toast';
 
 const Form = () => {
   const [images, setImages] = useState([]);
   const [isUploadContainerVisible, setUploadContainerVisible] = useState(true);
-  const [error, setError] = useState(null);
 
   const [clientErrors, setClientErrors] = useState({
     complaint_type: '',
@@ -53,13 +53,14 @@ const Form = () => {
       })
       .then(() => {
         setLoading(false);
+        toast.success('شکایت موفقانه ثبت شد');
         navigate('/');
       })
       .catch((error) => {
         if (!error.response) {
-          setError('connection_error');
+          toast.error('connection_error');
         } else {
-          setError(error.response?.detail);
+          toast.error(error.response?.detail);
         }
         setLoading(false);
       });
@@ -136,9 +137,10 @@ const Form = () => {
               <select
                 id="complaint_type"
                 name="complaint_type"
+                defaultValue={'invalid'}
                 className="shadow-2xl p-3 w-full outline-none focus:border-solid focus:ring-blue-900 focus:border-[1px] rounded-sm border-blue-900 placeholder:text-gray-500"
               >
-                <option disabled value={'invalid'} selected>
+                <option disabled value={'invalid'}>
                   {t('complaint_type')}
                 </option>
                 <option value="bribe_given">{t('bribe_given')}</option>
@@ -236,7 +238,8 @@ const Form = () => {
               )}
             </div>
             <button
-              className="outline-none shadow-2xl  w-1/2 text-center mx-auto p-3  bg-blue-400 text-white rounded-md hover:bg-blue-500 font-bold"
+              disabled={loading}
+              className="outline-none shadow-2xl disabled:opacity-40 w-1/2 text-center mx-auto p-3  bg-blue-400 text-white rounded-md hover:bg-blue-500 font-bold"
               type="submit"
             >
               ثبت شکایت

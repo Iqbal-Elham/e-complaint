@@ -1,12 +1,17 @@
-import React from 'react';
+import { Navigate } from 'react-router-dom';
 import Form from '../components/Form';
 
 const NewComplaint = () => {
-    return (
-        <div className="container mx-auto max-w-screen-xl">
-            <Form />
-        </div>
-    );
-}
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return <Navigate to={'/login'} />;
+  }
+
+  return (
+    <div className="container mx-auto max-w-screen-xl">
+      <Form />
+    </div>
+  );
+};
 
 export default NewComplaint;

@@ -1,5 +1,5 @@
 import Logo from '../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import useUser from '../context/userUser';
 const LoginPage = () => {
@@ -15,6 +15,12 @@ const LoginPage = () => {
       password: formData.get('password'),
     });
   };
+
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    return <Navigate to={'/'} />;
+  }
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">

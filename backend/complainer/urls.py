@@ -4,13 +4,14 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import TemplateView, RedirectView
 from rest_framework.routers import DefaultRouter
-from core.views import ComplaintViewSet
+from core.views import ComplaintViewSet, NotificationViewset
 from authentication.views import UserViewSet, ObtainJWTTokenView
 
 router = DefaultRouter()
 
 router.register("complaints", ComplaintViewSet)
 router.register("users", UserViewSet)
+router.register("notifications", NotificationViewset)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

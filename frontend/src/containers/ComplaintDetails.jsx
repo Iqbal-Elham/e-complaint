@@ -33,7 +33,7 @@ const ComplaintDetails = () => {
       {loading || !complaint ? (
         <DetailPlaceholder />
       ) : (
-        <Complaint complaint={complaint} />
+        <Complaint setComplaint={setComplaint} complaint={complaint} />
       )}
     </div>
   );
