@@ -3,12 +3,15 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import AuthContext from './AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 
 function AuthProvider(props) {
   const token = localStorage.getItem('token');
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const login = ({ username, password }) => {
     axios
@@ -29,6 +32,7 @@ function AuthProvider(props) {
         navigate('/');
       })
       .catch((error) => {
+        toast.error(t(error?.response?.data?.error));
         console.log(error);
       });
   };

@@ -19,6 +19,11 @@
   "phone_number": "ټلیفون نمبر",
   "save": "ساتل",
 
+  "login-title": "سیستم ته ننوتل",
+  "register-title": "سیستم کی ثبت نام کری",
+  "username": "یوزرنیم",
+  "password": "پسورد",
+
   "form_description": "مهرباني وکړئ د مخصوصاتو تفصیل ولریزه ولرئ که تاسو د اوسه سره وکړی",
   "upload_file": "فایل اپلوډ کړئ",
   "placeholder_title": "شکایت عنوان دی اداره کړئ",
@@ -42,6 +47,13 @@
   "previous": "مخکی",
   "next": "بل",
   "no_complaint_exist": "هیڅ شکایت نشته",
-  "about":"زموږ په اړه"
-
+  "about": "زموږ په اړه",
+  "invalid_credentials": "نا سمه یوزرنیم او یا پسورد",
+  "username-placeholder": "ستاسو یوزرنیم وليکئ",
+  "password-placeholder": "ستاسو پسورد وليکئ",
+  "first_name-placeholder": "ستاسو لومړی نوم وليکئ",
+  "last_name-placeholder": "ستاسو وروستی نوم وليکئ",
+  "email-placeholder": "ستاسو ایمیل وليکئ",
+  "username-error": "دا یوزرنیم مخکی ثبت شوی ده",
+  "email-error": "دا ایمیل مخکی ثبت شوی ده"
 }

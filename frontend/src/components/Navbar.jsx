@@ -54,6 +54,8 @@ const Navbar = () => {
     }
   };
 
+  const token = localStorage.getItem('token');
+
   return (
     <>
       <div>
@@ -71,7 +73,7 @@ const Navbar = () => {
               </div>
             </Link>
             <div className="flex mx-4 relative group">
-              <FaBell color="white" size={20} className="z-50" />
+              {token && <FaBell color="white" size={20} className="z-50" />}
 
               <ul className="z-50 group-hover:block hidden absolute top-full  w-72 rounded max-h-96 overflow-auto bg-gray-50 px-4 py-2 right-0">
                 <li className="text-center text-blue-500 font-bold text-lg">

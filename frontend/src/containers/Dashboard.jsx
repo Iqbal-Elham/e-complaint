@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Link, Navigate } from 'react-router-dom';
 import Pagination from '../components/Pagination';
 import useUser from '../context/userUser';
-import { toast } from 'react-hot-toast';
 import { FaSpinner } from 'react-icons/fa';
 
 function Dashboard() {
@@ -45,11 +44,7 @@ function Dashboard() {
         });
       })
       .catch((error) => {
-        if (!error.response) {
-          toast.error('connection_error');
-        } else {
-          toast.error(error.response?.detail);
-        }
+        console.log(error);
       });
   }, [itemsPerPage, currentPage, loading, user]);
 
@@ -68,7 +63,7 @@ function Dashboard() {
   }
 
   return (
-    <div className="mx-auto max-w-screen-2xl overflow-hidden">
+    <div className="mx-auto max-w-screen-2xl min-h-[70vh] overflow-hidden">
       <table className="mx-auto w-2/3 my-12 text-xl">
         <thead>
           <tr>
