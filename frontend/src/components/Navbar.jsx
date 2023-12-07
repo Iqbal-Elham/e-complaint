@@ -13,6 +13,7 @@ const Navbar = () => {
   const [activeLanguage, setActiveLanguage] = useState(i18n.language);
   const [mobileMenu, setMobileMenu] = useState(document.body.clientWidth > 540);
   const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const { logout, user } = useUser();
 
@@ -26,6 +27,7 @@ const Navbar = () => {
   }, [i18n.language]);
 
   useEffect(() => {
+    if (notifications.length > 0) return;
     axios
       .get(`${import.meta.env.VITE_API_URL}notifications/`, {
         headers: { Authorization: 'Bearer ' + localStorage.getItem('token') },
@@ -34,7 +36,7 @@ const Navbar = () => {
         setNotifications(response.data);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [notifications.length, user]);
 
   const isActive = (language) => {
     return activeLanguage === language ? 'text-white' : 'text-black';
@@ -72,27 +74,37 @@ const Navbar = () => {
                 <p>{t('save_complaint')}</p>
               </div>
             </Link>
-            <div className="flex mx-4 relative group">
-              {token && <FaBell color="white" size={20} className="z-50" />}
+            <div className="flex mx-4 relative">
+              {token && (
+                <FaBell
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  color="white"
+                  size={20}
+                  className="z-50"
+                />
+              )}
 
-              <ul className="z-50 group-hover:block hidden absolute top-full  w-72 rounded max-h-96 overflow-auto bg-gray-50 px-4 py-2 right-0">
-                <li className="text-center text-blue-500 font-bold text-lg">
-                  اعلامیه های شما
-                </li>
-                {notifications.map((notification) => (
-                  <li
-                    key={notification.id}
-                    className="w-full rounded hover:shadow-xl shadow-md p-2 text-gray-900 flex flex-col"
-                  >
-                    <Link to={`complaint/${notification.complaint.id}`}>
-                      <p className="font-bold">
-                        شکایت شماره {notification.complaint?.id}
-                      </p>
-                      {t(`notification_messages.${notification.message}`)}
-                    </Link>
+              {showNotifications && (
+                <ul className="z-50 absolute w-60 top-12 rounded max-h-96 overflow-auto bg-blue-500 px-4 py-2 -right-32 md:right-0">
+                  <li className="text-center text-white font-bold text-lg">
+                    اعلامیه های شما
                   </li>
-                ))}
-              </ul>
+                  {notifications.map((notification) => (
+                    <li
+                      key={notification.id}
+                      className="w-full rounded hover:shadow-xl shadow-md p-2 text-gray-900 bg-white mb-2 flex flex-col"
+                      onClick={() => setShowNotifications(false)}
+                    >
+                      <Link to={`complaint/${notification.complaint.id}`}>
+                        <p className="font-bold">
+                          شکایت شماره {notification.complaint?.id}
+                        </p>
+                        {t(`notification_messages.${notification.message}`)}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
           <div className="text-white text-xl sm:hidden cursor-pointer">

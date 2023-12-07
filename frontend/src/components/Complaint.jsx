@@ -73,12 +73,12 @@ const Complaint = ({ complaint, setComplaint }) => {
       <div className="w-full p-4 md:p-8 shadow-2xl  bg-gradient-to-b from-blue-200 to-blue-100 rounded-md mt-12">
         <section className="relative md:py-20 overflow-hidden rounded bg-white">
           <span
-            className={`absolute top-12 right-12 ${
+            className={`absolute top-12 left-12 lg:left-auto lg:right-12 ${
               complaint?.state === 'received'
                 ? 'bg-blue-500'
                 : complaint?.state == 'under_investigation'
                 ? 'bg-orange-500'
-                : 'bg-blue-500'
+                : 'bg-green-500'
             } rounded text-white px-2 py-1 text-sm font-semibold`}
           >
             {t(`states.${complaint?.state}`)}
